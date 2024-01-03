@@ -1,12 +1,25 @@
 package exercises;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConstructorClass {
 
     public ConstructorClass() {
+    }
+
+    public static <T> T createInstanceWithArguments(Class<T> clazz, Object ...args) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        for(Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+            if (constructor.getParameterTypes().length == args.length) {
+                return (T) constructor.newInstance(args);
+            }
+        }
+        System.out.println("An appropriate constructor was not found!");
+
+        return null;
+
     }
 
     private static void printConstructorData(Class<?> clazz) {
@@ -31,9 +44,14 @@ public class ConstructorClass {
         System.out.println();
     }
 
-    public void runner() throws ClassNotFoundException {
-        printConstructorData(Person.class);
-        printConstructorData(Address.class);
+    public void runner() throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        // printConstructorData(Person.class);
+        // printConstructorData(Address.class);
+        Address address = createInstanceWithArguments(Address.class,  "Dr. Annis Dabus", 65);
+        Person person = createInstanceWithArguments(Person.class, address,  "Lucas", 32);
+        assert person != null;
+        System.out.println(person.toString());
+
     }
 
     public static class Person {

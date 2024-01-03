@@ -6,6 +6,14 @@
     * Número de parâmetros;
     * Tipos de parâmetros;
 
+## Possibilidades com Reflection
+  * Com reflection podemos ter acesso total a todos métodos
+    * public
+    * protected
+    * package-private
+    * private
+  * Com Constructor.newInstance() nós podemos criar objetos de classes usando construtores restritos.
+
 ## Métodos dos objetos de Construtor<?>
   * Class.getDeclaredConstructors()
     * Construtores públicos e privados.
